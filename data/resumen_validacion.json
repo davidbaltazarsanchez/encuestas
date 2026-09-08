@@ -1,0 +1,18 @@
+{
+  "registros_originales": 3966,
+  "registros_procesados": 3966,
+  "columnas_originales": 179,
+  "columnas_json": 45,
+  "fe_finalnr_nulos": 0,
+  "fe_finalnr_menor_igual_cero": 0,
+  "edad_nulos": 0,
+  "satisfaccion_no_reconocida": 0,
+  "calificacion_no_reconocida": 0,
+  "resolucion_no_reconocida": 0,
+  "tiempo_total_nulos": 61,
+  "tiempo_total_menor_cero": 0,
+  "tiempo_t_valores_entre_0_y_1": 344,
+  "tiempo_init_valores_entre_0_y_1": 22,
+  "tiempo_vent_valores_entre_0_y_1": 13,
+  "categorias_inesperadas": {}
+}

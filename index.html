@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Tablero ENCAL Subdelegaciones 2026" />
+    <title>ENCAL Subdelegaciones 2026</title>
+    <link rel="icon" href="img/logo-gob-mx_ok.png" />
+    <link rel="stylesheet" href="css/tablero.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="site-header">
+        <div class="header-container">
+          <div class="brand-logos" aria-label="Logotipos institucionales">
+            <img
+              src="img/logo-gob-mx_dtpi.png"
+              class="logo-gob"
+              alt="Gobierno de México"
+            />
+          </div>
+        </div>
+      </header>
+
+      <main class="bloque-global">
+        <div class="MiTablero">
+          <section class="encal-header">
+            <div class="encal-header__text">
+              <h1>ENCAL SUBDELEGACIONES 2026</h1>
+              <p class="subtitle">
+                Resultados ponderados con el factor de expansión
+                <strong>FE_FinalNR</strong>.
+              </p>
+            </div>
+
+            <button id="btnReset" class="btn btn-secondary" type="button">
+              Limpiar filtros
+            </button>
+          </section>
+
+          <div class="MiTablero-content">
+            <section class="panel filters-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="section-kicker">Explorar</p>
+                  <h2>Filtros</h2>
+                </div>
+                <span id="filterSummary" class="filter-status"
+                  >Sin filtros activos</span
+                >
+              </div>
+              <div class="filters-grid">
+                <label class="field"
+                  ><span>Región</span
+                  ><select id="fRegion">
+                    <option value="">Todas</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Delegación</span
+                  ><select id="fDeleg">
+                    <option value="">Todas</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Subdelegación</span
+                  ><select id="fSubdeleg">
+                    <option value="">Todas</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Tipo de trámite</span
+                  ><select id="fTipoTramite">
+                    <option value="">Todos</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Trámite</span
+                  ><select id="fTramite">
+                    <option value="">Todos</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Sexo</span
+                  ><select id="fSexo">
+                    <option value="">Todos</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Grupo de edad</span
+                  ><select id="fEdad">
+                    <option value="">Todos</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Tipo de usuario</span
+                  ><select id="fTipoUsuario">
+                    <option value="">Todos</option>
+                  </select></label
+                >
+              </div>
+            </section>
+
+            <section class="kpi-grid">
+              <article class="kpi-card">
+                <div class="kpi-icon">☺</div>
+                <div>
+                  <p class="kpi-label">Satisfacción</p>
+                  <p id="kpiSatisfaccion" class="kpi-value">—</p>
+                  <p class="kpi-note">Muy satisfecho + satisfecho</p>
+                </div>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-icon">★</div>
+                <div>
+                  <p class="kpi-label">Calificación</p>
+                  <p id="kpiCalificacion" class="kpi-value">—</p>
+                  <p class="kpi-note">Promedio ponderado, escala 0–10</p>
+                </div>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-icon">✓</div>
+                <div>
+                  <p class="kpi-label">Trámite resuelto</p>
+                  <p id="kpiResuelto" class="kpi-value">—</p>
+                  <p class="kpi-note">Porcentaje de respuestas “Sí”</p>
+                </div>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-icon">◷</div>
+                <div>
+                  <p class="kpi-label">Tiempo total</p>
+                  <p id="kpiTiempo" class="kpi-value">—</p>
+                  <p class="kpi-note">Promedio ponderado en minutos</p>
+                </div>
+              </article>
+            </section>
+
+            <section class="sample-strip">
+              <div>
+                <span class="sample-label">Encuestas</span
+                ><strong id="nEncuestas">—</strong>
+              </div>
+              <div>
+                <span class="sample-label">Población representada</span
+                ><strong id="poblacionExpandida">—</strong>
+              </div>
+              <div>
+                <span class="sample-label">Cobertura actual</span
+                ><strong id="coberturaActual">Nacional</strong>
+              </div>
+            </section>
+
+            <section class="charts-grid">
+              <article class="panel chart-card">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="section-kicker">Percepción</p>
+                    <h2>Satisfacción</h2>
+                  </div>
+                </div>
+                <div class="chart-wrap">
+                  <canvas id="chartSatisfaccion"></canvas>
+                </div>
+              </article>
+              <article class="panel chart-card">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="section-kicker">Resultado</p>
+                    <h2>Resolución del trámite</h2>
+                  </div>
+                </div>
+                <div class="chart-wrap">
+                  <canvas id="chartResolucion"></canvas>
+                </div>
+              </article>
+              <article class="panel chart-card">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="section-kicker">Atención</p>
+                    <h2>Calidad del trato</h2>
+                  </div>
+                </div>
+                <div class="chart-wrap"><canvas id="chartTrato"></canvas></div>
+              </article>
+              <article class="panel chart-card">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="section-kicker">Servicio</p>
+                    <h2>Experiencia de atención</h2>
+                  </div>
+                </div>
+                <div class="chart-wrap chart-wrap-tall">
+                  <canvas id="chartExperiencia"></canvas>
+                </div>
+              </article>
+            </section>
+
+            <section class="panel table-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="section-kicker">Comparativo</p>
+                  <h2>Desempeño por subdelegación</h2>
+                  <p class="section-description">
+                    Comparativo por subdelegación con tamaño muestral (n) y
+                    resultados ponderados con FE_FinalNR.R.
+                  </p>
+                  <p class="section-description">
+                    Haz clic en los encabezados para ordenar.
+                  </p>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table id="tablaSubdelegaciones">
+                  <thead>
+                    <tr>
+                      <th data-sort-sub="nombre">Subdelegación</th>
+                      <th data-sort-sub="n">n</th>
+                      <th data-sort-sub="satisfaccion">Satisfacción</th>
+                      <th data-sort-sub="calificacion">Calificación</th>
+                      <th data-sort-sub="resuelto">Resuelto</th>
+                      <th data-sort-sub="tiempo">Tiempo</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="panel table-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="section-kicker">Trámites</p>
+                  <h2>¿En qué trámites tenemos problemas?</h2>
+                  <p class="section-description">
+                    Comparativo por trámite con tamaño muestral (n) y resultados
+                    ponderados con FE_FinalNR.
+                  </p>
+                  <p class="section-description">
+                    Haz clic en los encabezados para ordenar.
+                  </p>
+                </div>
+                <label class="field field-inline"
+                  ><span>Mostrar</span
+                  ><select id="topTramites">
+                    <option value="10">10 trámites</option>
+                    <option value="15" selected>15 trámites</option>
+                    <option value="25">25 trámites</option>
+                    <option value="9999">Todos</option>
+                  </select></label
+                >
+              </div>
+              <div class="table-scroll">
+                <table id="tablaTramites">
+                  <thead>
+                    <tr>
+                      <th data-sort-tram="nombre">Trámite</th>
+                      <th data-sort-tram="n">n</th>
+                      <th data-sort-tram="satisfaccion">Satisfacción</th>
+                      <th data-sort-tram="calificacion">Calificación</th>
+                      <th data-sort-tram="resuelto">Resuelto</th>
+                      <th data-sort-tram="tiempo">Tiempo</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <p class="table-footnote">
+                Nota: una muestra pequeña puede producir estimaciones
+                inestables. El valor <strong>n</strong> corresponde al número de
+                entrevistas, no a la población expandida.
+              </p>
+            </section>
+
+            <section class="panel integrity-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="section-kicker">Integridad</p>
+                  <h2>Indicadores complementarios</h2>
+                </div>
+              </div>
+              <div class="mini-kpis">
+                <article>
+                  <span>Uso de gestor</span><strong id="miniGestor">—</strong>
+                </article>
+                <article>
+                  <span>Dificultad con requisitos</span
+                  ><strong id="miniDificultad">—</strong>
+                </article>
+                <article>
+                  <span>Personal identificado</span
+                  ><strong id="miniIdentificado">—</strong>
+                </article>
+                <article>
+                  <span>Respuesta “Sí” en corrupción</span
+                  ><strong id="miniCorrupcion">—</strong>
+                </article>
+              </div>
+            </section>
+
+            <section id="errorPanel" class="error-panel" hidden>
+              <h2>No fue posible cargar los datos</h2>
+              <p id="errorMessage"></p>
+              <p>
+                Si abriste <code>index.html</code> con doble clic, algunos
+                navegadores bloquean <code>fetch()</code> sobre archivos
+                locales. Prueba con <code>python -m http.server 8000</code>.
+              </p>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="gob-footer-banner" aria-hidden="true"></div>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
